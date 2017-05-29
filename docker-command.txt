@@ -1,0 +1,1 @@
+docker run --interactive --name mysql -e MYSQL_ROOT_PASSWORD=root -d mysql/mysql-server:5.5
