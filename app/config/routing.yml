@@ -1,3 +1,11 @@
-bonjour:
- path: /hello
- defaults: { _controller: AppBundle:Test:bonjour }
+home:
+ path: /home
+ defaults: { _controller: AppBundle:Home:home }
+
+sign_in:
+ path: /sign_in
+ defaults: { _controller: AppBundle:Login:connexion}
+
+connect:
+ path: /connect
+ defaults: { _controller: AppBundle:Login:connectUser}
