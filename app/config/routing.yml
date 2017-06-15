@@ -6,6 +6,9 @@ sign_in:
  path: /sign_in
  defaults: { _controller: AppBundle:Login:connexion}
 
-connect:
- path: /connect
- defaults: { _controller: AppBundle:Login:connectUser}
+login:
+ path: /login
+ defaults: { _controller: AppBundle:Login:login}
+
+logout:
+ path: /logout

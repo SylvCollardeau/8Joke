@@ -2,10 +2,12 @@
 
 namespace AppBundle\Entity\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * User
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @var int
@@ -15,7 +17,7 @@ class User
     /**
      * @var string
      */
-    private $login;
+    private $username;
 
     /**
      * @var string
@@ -40,9 +42,9 @@ class User
      *
      * @return User
      */
-    public function setLogin($login)
+    public function setUsername($username)
     {
-        $this->login = $login;
+        $this->username = $username;
 
         return $this;
     }
@@ -52,9 +54,9 @@ class User
      *
      * @return string
      */
-    public function getLogin()
+    public function getUsername()
     {
-        return $this->login;
+        return $this->username;
     }
 
     /**
@@ -80,5 +82,47 @@ class User
     {
         return $this->password;
     }
+
+     public function setPlainPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Get password
+     *
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->password;
+    }
+
+
+    public function getSalt()
+    {
+        return null;
+    }
+
+     public function getRoles()
+    {
+        return array("ROLE_USER");
+    }
+
+    public function eraseCredentials(){
+
+    }
+    
+    public function serialize(){
+
+    }
+
+    public function unserialize($serialized){
+        
+    }
+
+
 }
 

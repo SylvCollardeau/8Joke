@@ -15,12 +15,20 @@ class LoginController extends Controller
     {
     	$title = "Sign-in";
 
-    	return $this->render('::default/login.html.twig', array(
-    		'title' => $title,
-    	));
+    	$authUtils = $this->get("security.authentication_utils");
+    	 // get the login error if there is one
+		$error = $authUtils->getLastAuthenticationError();
+
+		// last username entered by the user
+		$lastUsername = $authUtils->getLastUsername();
+
+		return $this->render('::default/login.html.twig', array(
+		    'last_username' => $lastUsername,
+		    'error'         => $error,
+		));
     }
 
-    public function connectUserAction()
+    public function loginAction()
     {
 
     	$user = new User();
@@ -41,6 +49,7 @@ class LoginController extends Controller
 	    return $this->render('::default/validation.html.twig', array(
 		        'success' => $success,
 		));
+		
     }
 
 
