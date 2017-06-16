@@ -1,26 +1,37 @@
 <?php
 
-namespace AppBundle\Entity\Entity;
+namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Security\Core\User\UserInterface;
+
 /**
  * User
+ *
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
-class User implements UserInterface, \Serializable
+class User
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
@@ -36,9 +47,9 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set login
+     * Set username
      *
-     * @param string $login
+     * @param string $username
      *
      * @return User
      */
@@ -50,7 +61,7 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Get login
+     * Get username
      *
      * @return string
      */
@@ -82,47 +93,5 @@ class User implements UserInterface, \Serializable
     {
         return $this->password;
     }
-
-     public function setPlainPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get password
-     *
-     * @return string
-     */
-    public function getPlainPassword()
-    {
-        return $this->password;
-    }
-
-
-    public function getSalt()
-    {
-        return null;
-    }
-
-     public function getRoles()
-    {
-        return array("ROLE_USER");
-    }
-
-    public function eraseCredentials(){
-
-    }
-    
-    public function serialize(){
-
-    }
-
-    public function unserialize($serialized){
-        
-    }
-
-
 }
 

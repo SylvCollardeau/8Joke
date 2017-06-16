@@ -43,11 +43,13 @@ class LoginController extends Controller
 	    if (count($errors) > 0) {
 	      return $this->render('::default/validation.html.twig', array(
 		        'errors' => $errors,
+                'success' => $success,
 		  ));
 	    }
 
 	    return $this->render('::default/validation.html.twig', array(
 		        'success' => $success,
+                'errors' => $errors,
 		));
 		
     }
