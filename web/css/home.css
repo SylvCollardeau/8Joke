@@ -1,0 +1,9 @@
+body{
+	padding-top: 50px;
+	text-align: center;
+}
+img{
+	border: 2px solid #000000;
+	max-width: 450px;
+	max-height: 600px;
+}

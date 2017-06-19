@@ -9,6 +9,9 @@ security:
         dbprovider:
             entity:
                 class: AppBundle:User
+                property: apikey
+        webservice:
+            id: AppBundle\Security\User\WebserviceUserProvider
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
         dev:
@@ -18,7 +21,9 @@ security:
         main:
             anonymous: ~
             provider: dbprovider
-
+            guard:
+                authenticators:
+                    - AppBundle\Security\TokenAuthenticator
             form_login:
                     login_path: login
                     check_path: login
@@ -32,3 +37,8 @@ security:
 
             # http://symfony.com/doc/current/cookbook/security/form_login_setup.html
             #form_login: ~
+    encoders:
+        AppBundle\Security\User\WebserviceUser:
+            algorithm: bcrypt
+            cost: 12
+

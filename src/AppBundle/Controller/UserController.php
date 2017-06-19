@@ -1,5 +1,4 @@
 <?php 	
-// src/AppBundle/Controller/TestController.php
 namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -8,7 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 use AppBundle\Entity\User;
 
-class LoginController extends Controller
+class UserController extends Controller
 {
 
     public function connexionAction()

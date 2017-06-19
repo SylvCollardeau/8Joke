@@ -1,43 +1,38 @@
 <?php
-
+// src/AppBundle/Entity/User.php
 namespace AppBundle\Entity;
 
-use Doctrine\ORM\Mapping as ORM;
-
+use Symfony\Component\Security\Core\User\UserInterface;
 /**
- * User
- *
- * @ORM\Table(name="user")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
+ * User.
  */
-class User
+class User implements UserInterface, \Serializable
 {
     /**
      * @var int
-     *
-     * @ORM\Column(name="id", type="integer")
-     * @ORM\Id
-     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
     /**
      * @var string
-     *
-     * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
-
     /**
      * @var string
-     *
-     * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
 
-
     /**
-     * Get id
+     * @var string
+     */
+    private $apiKey;
+
+    public function __construct($username = null, $plainPassword = null)
+    {
+        $this->username = $username;
+        $this->setPlainPassword($plainPassword);
+    }
+    /**
+     * Get id.
      *
      * @return int
      */
@@ -45,9 +40,8 @@ class User
     {
         return $this->id;
     }
-
     /**
-     * Set username
+     * Set username.
      *
      * @param string $username
      *
@@ -56,12 +50,10 @@ class User
     public function setUsername($username)
     {
         $this->username = $username;
-
         return $this;
     }
-
     /**
-     * Get username
+     * Get username.
      *
      * @return string
      */
@@ -69,9 +61,8 @@ class User
     {
         return $this->username;
     }
-
     /**
-     * Set password
+     * Set password.
      *
      * @param string $password
      *
@@ -80,12 +71,31 @@ class User
     public function setPassword($password)
     {
         $this->password = $password;
-
         return $this;
     }
-
     /**
-     * Get password
+     * Set password.
+     *
+     * @param string $password
+     *
+     * @return User
+     */
+    public function setPlainPassword($password)
+    {
+        $this->password = $password;
+        return $this;
+    }
+    /**
+     * Get password.
+     *
+     * @return string
+     */
+    public function getPlainPassword()
+    {
+        return $this->password;
+    }
+    /**
+     * Get password.
      *
      * @return string
      */
@@ -93,5 +103,68 @@ class User
     {
         return $this->password;
     }
-}
+    
+    public function getSalt()
+    {
+        // you *may* need a real salt depending on your encoder
+        // see section on salt below
+        return null;
+    }
+    public function getRoles()
+    {
+        return array('ROLE_USER');
+    }
+    /**
+     * Set email.
+     *
+     * @param string $email
+     *
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
 
+    /** @see \Serializable::serialize() */
+    public function serialize()
+    {
+        return serialize(array(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt,
+        ));
+    }
+    /** @see \Serializable::unserialize()
+     * @param string $serialized
+     */
+    public function unserialize($serialized)
+    {
+        list(
+            $this->id,
+            $this->username,
+            $this->password,
+            // see section on salt below
+            // $this->salt
+            ) = unserialize($serialized);
+    }
+    /**
+     * @return string
+     */
+    public function getApiKey()
+    {
+        return $this->apiKey;
+    }
+    /**
+     * @param string $apiKey
+     */
+    public function setApiKey($apiKey)
+    {
+        $this->apiKey = $apiKey;
+        return $this;
+    }
+}
+?>

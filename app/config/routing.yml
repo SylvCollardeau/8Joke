@@ -2,13 +2,25 @@ home:
  path: /
  defaults: { _controller: AppBundle:Home:home }
 
+like:
+ path: /like/{post_id}
+ defaults: { _controller: AppBundle:Home:like }
+
+unlike:
+ path: /unlike/{post_id}
+ defaults: { _controller: AppBundle:Home:unlike }
+
 sign_in:
  path: /sign_in
- defaults: { _controller: AppBundle:Login:connexion}
+ defaults: { _controller: AppBundle:User:connexion}
+
+sign_up:
+ path: /sign_up
+ defaults: { _controller: AppBundle:User:sign_up}
 
 login:
  path: /login
- defaults: { _controller: AppBundle:Login:login}
+ defaults: { _controller: AppBundle:User:login}
 
 logout:
  path: /logout

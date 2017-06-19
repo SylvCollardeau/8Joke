@@ -4,18 +4,23 @@
 	Home
 {% endblock %}
 
+{% block stylesheets %}
+{{ parent() }}
+	<link type="text/css" rel="stylesheet" href="{{ asset('css/home.css') }}"/>
+{% endblock %}
+
 {% block body %}
 	{% for item in post %}
 	<div class="row">
 		<div class="col-lg-4 col-lg-push-4">
 			<h2>{{ item.titre }}</h2>
 			<img class="img-thumbnail" src="{{ asset(item.imgpath) }}">
-			<p>{{ item.auteur }}</p>
+			<p>Created by : {{ item.auteur }}</p>
 			<div class="btn-group" role="group" aria-label="Basic example">
-				<button type="button" class="btn btn-default glyphicon glyphicon-arrow-up"></button>
-				<button type="button" class="btn btn-default glyphicon glyphicon-arrow-down"></button>
+				<a class="btn btn-default glyphicon glyphicon-arrow-up" href="{{ path('like', {post_id : item.id }) }}"></a>
+				<a class="btn btn-default glyphicon glyphicon-arrow-down" href="{{ path('unlike', {post_id : item.id }) }}"></a>
 				<p class="btn">{{ item.nbLike }}</p>
-				<button type="button" class="btn btn-default glyphicon glyphicon-comment"></button>
+				<a class="btn btn-default glyphicon glyphicon-comment" href="#"></a>
 			</div>
 		</div>
 	</div>
@@ -23,17 +28,4 @@
 
 {% endblock %}
 
-{% block stylesheets %}
-{{ parent() }}
-<style type="text/css" rel="stylesheet">
-	body{
-		padding-top: 50px;
-		text-align: center;
-	}
-	img{
-		border: 2px solid #000000;
-		max-width: 450px;
-		max-height: 600px;
-	}
-</style>
-{% endblock %}
+
