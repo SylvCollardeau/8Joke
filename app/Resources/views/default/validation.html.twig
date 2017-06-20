@@ -1,13 +1,9 @@
-{% if errors %}
-<div class="alert alert-danger" role="alert">
-	<ul>
-	{% for error in errors %}
-	    <li>{{ error.message }}</li>
-	{% endfor %}
-	</ul>
-</div>
-{% else %}
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	{{ title }}
+{% endblock %}
+
 <div class="alert alert-success" role="alert">
-	<p>{{ success }}</p>
+	<p>Inscription réussie !</p>
 </div>
-{% endif %}
