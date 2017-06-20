@@ -3,28 +3,34 @@
 namespace AppBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use Doctrine\ORM\Mapping as ORM;
 /**
- * User.
+ * User. 
+ * @ORM\Table(name="user")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
 class User implements UserInterface, \Serializable
 {
     /**
      * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
     /**
      * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
     /**
      * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=255)
      */
     private $password;
-
-    /**
-     * @var string
-     */
-    private $apiKey;
 
     public function __construct($username = null, $plainPassword = null)
     {
@@ -104,16 +110,7 @@ class User implements UserInterface, \Serializable
         return $this->password;
     }
     
-    public function getSalt()
-    {
-        // you *may* need a real salt depending on your encoder
-        // see section on salt below
-        return null;
-    }
-    public function getRoles()
-    {
-        return array('ROLE_USER');
-    }
+
     /**
      * Set email.
      *
@@ -151,20 +148,19 @@ class User implements UserInterface, \Serializable
             // $this->salt
             ) = unserialize($serialized);
     }
-    /**
-     * @return string
-     */
-    public function getApiKey()
+
+    public function getRoles()
     {
-        return $this->apiKey;
+        return array('ROLE_USER');
     }
-    /**
-     * @param string $apiKey
-     */
-    public function setApiKey($apiKey)
+
+    public function getSalt()
     {
-        $this->apiKey = $apiKey;
-        return $this;
     }
+
+    public function eraseCredentials()
+    {
+    }
+
 }
 ?>

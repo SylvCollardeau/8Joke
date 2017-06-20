@@ -21,15 +21,26 @@
                     <div class="navbar-header">
                       <a class="navbar-brand" href="{{ path('home') }}">8Joke</a>
                     </div>
+
                     <div class="collapse navbar-collapse">
                       <ul class="nav navbar-nav">
                         <li><a href="{{ path('home') }}">Home</a></li>
                         <li><a href="#">Post</a></li>
+                         
+
+                      {% if app.user %}
+                      <ul class="nav navbar-nav">
+                        <li><a>Connected as {{ app.user.username }}</a></li>
+                        <li><a href="{{ path('logout') }}">Log-out</a></li>
+                      </ul>
+                      {% else %}
                       <ul class="nav navbar-nav navbar-right">
-                        <li><a href="{{ path('sign_in') }}">Sign-in</a></li>
+                        <li><a href="{{ path('login') }}">Sign-in</a></li>
                         <li><a href="#">Sign-up</a></li>
                       </ul>
+                      {% endif %}
                     </div>
+                     
               </div>
             </nav>
         </header>
