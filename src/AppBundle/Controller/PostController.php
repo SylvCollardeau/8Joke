@@ -9,12 +9,14 @@ use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Vote;
 
 class PostController extends Controller{
+
 	public function likeAction($post_id)
     {	
     	$em = $this -> getDoctrine() -> getManager();
 
     	$user = $this -> getUser();
 
+    	
     	if($user){
 
 	    	$vote = new Vote();
@@ -85,5 +87,9 @@ class PostController extends Controller{
 	    {
 	    	return $this->redirectToRoute('home');
 	    }
+    }
+
+    public function userHasVote($post_id, $user_id, $vote_type){
+    	
     }
 }

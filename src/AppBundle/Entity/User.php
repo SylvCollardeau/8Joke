@@ -4,6 +4,7 @@ namespace AppBundle\Entity;
 
 use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 /**
  * User. 
  * @ORM\Table(name="user")
@@ -17,16 +18,21 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     *
      */
     private $id;
     /**
      * @var string
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="username", type="string", length=255)
      */
     private $username;
     /**
      * @var string
+     *
+     * @Assert\NotBlank()
      *
      * @ORM\Column(name="password", type="string", length=255)
      */
@@ -161,6 +167,5 @@ class User implements UserInterface, \Serializable
     public function eraseCredentials()
     {
     }
-
 }
 ?>

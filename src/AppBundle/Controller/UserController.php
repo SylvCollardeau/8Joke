@@ -42,18 +42,23 @@ class UserController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
+
+        	$user -> setUsername($form -> getData() -> getUsername());
+
+        	$user->setPassword(password_hash($form -> getData() -> getPassword(), PASSWORD_BCRYPT));
+
 	    	$em -> persist($user);
 
 	    	$em -> flush();
 
             return $this->redirectToRoute("createUserOk");
         }
-
-        return $this->render('::default/register.html.twig', array(
-			"title" => $title,
-			"form" => $form-> createView(),
-		));
+        else{
+	        return $this->render('::default/register.html.twig', array(
+				"title" => $title,
+				"form" => $form-> createView(),
+			));
+    	}
 
     }
 

@@ -1,4 +1,0 @@
-AppBundle\Entity\User:
-    properties:
-        name:
-            - NotBlank: ~
