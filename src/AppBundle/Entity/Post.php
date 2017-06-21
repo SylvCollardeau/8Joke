@@ -7,8 +7,9 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Post
  *
- * @ORM\Table(name="post")
+ * @ORM\Table(name="post",  options={"collate"="utf8mb4_unicode_ci", "charset"="utf8mb4"}))
  * @ORM\Entity(repositoryClass="AppBundle\Repository\PostRepository")
+ *
  */
 class Post
 {
@@ -49,6 +50,12 @@ class Post
      */
     private $nbLike;
 
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id_user", type="integer")
+     */
+    private $idUser;
 
     /**
      * Get id
@@ -155,5 +162,31 @@ class Post
     {
         return $this->nbLike;
     }
+
+    /**
+     * Get idUser
+     *
+     * @return int
+     */
+    public function getIdUser(){
+        return $this->idUser;
+    }
+
+    /**
+     * Set idUser
+     *
+     * @param integer $idUser
+     *
+     * @return Post
+     */
+    public function setIdUser($idUser)
+    {
+        $this->idUSer = $idUser;
+
+        return $this;
+    }
+
+
+
 }
 

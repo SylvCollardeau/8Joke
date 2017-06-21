@@ -2,6 +2,14 @@ home:
  path: /
  defaults: { _controller: AppBundle:Home:home }
 
+showUserPost:
+ path: /showUserPost
+ defaults: { _controller: AppBundle:Post:showUserPost }
+
+deletePost:
+ path: /deletePost/{post_id}
+ defaults: { _controller: AppBundle:Post:deletePost }
+
 like:
  path: /like/{post_id}
  defaults: { _controller: AppBundle:Post:like }

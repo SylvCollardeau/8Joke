@@ -10,37 +10,77 @@ use AppBundle\Entity\Vote;
 
 class PostController extends Controller{
 
+    public function showUserPostAction(){
+        $em = $this ->getDoctrine() ->getManager();
+
+    	$user = $this -> getUser();
+
+        $post =  $em ->getRepository('AppBundle:Post') ->findBy(array('idUser' => $user->getId()));
+
+        return $this->render('::default/showUserPost.html.twig', array(
+            'post' => $post,
+        ));
+
+    }
+
+    public function deletePostAction($post_id){
+
+        $em = $this ->getDoctrine() ->getManager();
+
+        $post =  $em ->getRepository('AppBundle:Post') ->find($post_id);
+
+        $em->remove($post);
+
+        $em->flush();
+
+        return $this->redirectToRoute('showUserPost');
+    }
+
 	public function likeAction($post_id)
     {	
     	$em = $this -> getDoctrine() -> getManager();
 
     	$user = $this -> getUser();
 
-    	
     	if($user){
 
-	    	$vote = new Vote();
-	    	$vote -> setIdPost($post_id);
-			$vote -> setIdUser($user->getId());
-			$vote -> setTypeVote("like");
+            $hasVote = $this->userHasVote($post_id, $user->getId(), "like");
+            if(!$hasVote) {
 
-			$em -> persist($vote);
+                $vote_other_type = $em ->getRepository('AppBundle:Vote')->findBy(array('idPost' => $post_id, 'idUser' => $user->getId(), 'typeVote' => 'unlike'));
 
-	    	$post = $em ->getRepository('AppBundle:Post') -> find("$post_id");
+                if($vote_other_type){
+                    foreach($vote_other_type as $item){
+                        $em->remove($item);
+                    }
+                }
 
-	    	if (!$post) {
-	    		throw new Symfony\Component\HttpKernel\Exception\HttpException(404, "Post not found");
-	    	}
+                $vote = new Vote();
+                $vote->setIdPost($post_id);
+                $vote->setIdUser($user->getId());
+                $vote->setTypeVote("like");
 
-	    	$like_post = $post -> getNbLike() + 1;
+                $em->persist($vote);
 
-	    	$post -> setNbLike($like_post);
+                $post = $em->getRepository('AppBundle:Post')->find("$post_id");
 
-	    	$em -> persist($post);
+                if (!$post) {
+                    throw new Symfony\Component\HttpKernel\Exception\HttpException(404, "Post not found");
+                }
 
-	    	$em -> flush();
+                $like_post = $post->getNbLike() + 1;
 
-	    	return $this -> redirectToRoute('home');
+                $post->setNbLike($like_post);
+
+                $em->persist($post);
+
+                $em->flush();
+
+                return $this->redirectToRoute('home');
+            }
+            else{
+                return $this->redirectToRoute('home');
+            }
 	    }
 	    else
 	    {
@@ -56,32 +96,43 @@ class PostController extends Controller{
 
 		if($user){
 
-	    	$vote = new Vote();
-	    	$vote -> setIdPost($post_id);
-			$vote -> setIdUser($user -> getId());
-			$vote -> setTypeVote("unlike");
+            $hasVote = $this->userHasVote($post_id, $user->getId(), "unlike");
+            if(!$hasVote) {
+                $vote = new Vote();
+                $vote->setIdPost($post_id);
+                $vote->setIdUser($user->getId());
+                $vote->setTypeVote("unlike");
 
-			
+                $vote_other_type = $em ->getRepository('AppBundle:Vote')->findBy(array('idPost' => $post_id, 'idUser' => $user->getId(), 'typeVote' => 'like'));
 
-	    	$post = $em -> getRepository('AppBundle:Post') -> find("$post_id");
+                if($vote_other_type){
+                    foreach($vote_other_type as $item){
+                        $em->remove($item);
+                    }
+                }
 
-	    	if (!$post) 
-	    	{
-	    		throw new Symfony\Component\HttpKernel\Exception\HttpException(404, "Post not found");
-	    	}
+                $post = $em->getRepository('AppBundle:Post')->find("$post_id");
 
-	    	$like_post = $post -> getNbLike() - 1;
+                if (!$post) {
+                    throw new Symfony\Component\HttpKernel\Exception\HttpException(404, "Post not found");
+                }
 
-	    	$post -> setNbLike($like_post);
+                $like_post = $post->getNbLike() - 1;
 
-	    	$em -> persist($vote);
+                $post->setNbLike($like_post);
 
-	    	$em -> persist($post);
+                $em->persist($vote);
 
-	    	$em -> flush();
+                $em->persist($post);
 
+                $em->flush();
 
-	    	return $this->redirectToRoute('home');
+                return $this->redirectToRoute('home');
+            }
+            else{
+                return $this->redirectToRoute('home');
+            }
+
 	    }
 	    else
 	    {
@@ -90,6 +141,20 @@ class PostController extends Controller{
     }
 
     public function userHasVote($post_id, $user_id, $vote_type){
-    	
+        $em = $this -> getDoctrine() -> getManager();
+
+        $votes = $em ->getRepository('AppBundle:Vote')->findBy(array('idPost' => $post_id, 'idUser' => $user_id, 'typeVote' => $vote_type));
+
+        if($votes){
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
+
+    public function createPostAction(){
+
     }
 }

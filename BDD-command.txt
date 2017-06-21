@@ -4,7 +4,7 @@ docker run --name mysql -e MYSQL_ROOT_PASSWORD=root -p 4242:3306 -d mysql:5.7
 
 ./bin/console  doctrine:schema:update --force
 
-docker cp ./command.sql <container name>:/
+docker cp ./command.sql mysql:/
 
-docker exec <container name> /bin/sh -c 'mysql -u root -proot  <command.sql'
+docker exec mysql /bin/sh -c 'mysql -u root -proot  <command.sql'
 

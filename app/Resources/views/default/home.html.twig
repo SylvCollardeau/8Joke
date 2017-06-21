@@ -4,11 +4,6 @@
 	Home
 {% endblock %}
 
-{% block stylesheets %}
-{{ parent() }}
-	<link type="text/css" rel="stylesheet" href="{{ asset('css/home.css') }}"/>
-{% endblock %}
-
 {% block body %}
 	{% for item in post %}
 	<div class="row">
