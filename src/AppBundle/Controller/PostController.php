@@ -21,6 +21,8 @@ class PostController extends Controller{
 
         $post =  $em ->getRepository('AppBundle:Post') ->findBy(array('idUser' => $user->getId()));
 
+        dump($post);
+
         return $this->render('::default/showUserPost.html.twig', array(
             'post' => $post,
         ));
@@ -67,7 +69,11 @@ class PostController extends Controller{
                 $fileName
             );
 
-            $post->setImg($fileName);
+            $post->setImg('img/'.$fileName);
+
+            $post->setNbLike(0);
+
+            $post->setIdUser($user->getId());
 
             $em->persist($post);
 

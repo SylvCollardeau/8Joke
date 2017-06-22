@@ -135,7 +135,7 @@ class Post
      */
     public function setImg($img)
     {
-        $this->imgPath = $img;
+        $this->img = $img;
 
         return $this;
     }
@@ -192,7 +192,7 @@ class Post
      */
     public function setIdUser($idUser)
     {
-        $this->idUSer = $idUser;
+        $this->idUser = $idUser;
 
         return $this;
     }

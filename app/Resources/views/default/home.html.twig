@@ -9,19 +9,17 @@
 	<div class="row">
 		<div class="col-lg-4 col-lg-push-4">
 			<h2>{{ item.titre }}</h2>
-			<img class="img-thumbnail" src="{{ asset(item.imgpath) }}">
+			<img class="img-thumbnail" src="{{ asset(item.img) }}">
 			<p>Created by : {{ item.auteur }}</p>
 			<div class="btn-group" role="group" aria-label="Basic example">
 				{% if app.user %}
 				<a class="btn btn-default glyphicon glyphicon-arrow-up" href="{{ path('like', {post_id : item.id}) }}"></a>
 				<a class="btn btn-default glyphicon glyphicon-arrow-down" href="{{ path('unlike', {post_id : item.id}) }}"></a>
 				<p class="btn">{{ item.nbLike }}</p>
-				<a class="btn btn-default glyphicon glyphicon-comment" href="#"></a>
 				{% else %}
 				<a class="btn btn-default glyphicon glyphicon-arrow-up" href="#" disabled></a>
 				<a class="btn btn-default glyphicon glyphicon-arrow-down" href="#" disabled></a>
 				<p class="btn" disabled>{{ item.nbLike }}</p>
-				<a class="btn btn-default glyphicon glyphicon-comment" href="#" disabled></a>
 				{% endif %}
 			</div>
 		</div>

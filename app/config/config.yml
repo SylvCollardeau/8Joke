@@ -38,6 +38,8 @@ framework:
 twig:
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+    globals:
+      post_img_directory: '%kernel.root_dir%/../web/img'
 
 # Doctrine Configuration
 doctrine:
