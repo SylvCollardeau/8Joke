@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+	Create Post
+{% endblock %}
+
+{% block body %}
+<div class="col-lg-3 col-lg-push-4">
+    {{ form_start(form) }}
+        {{ form_widget(form._token) }}
+    <div class="form-group">
+        {{ form_label(form.titre) }}
+        {{ form_errors(form.titre, { 'attr': {'class': 'help-block'} }) }}
+        {{ form_widget(form.titre) }}
+    </div>
+    {{ form_label(form.file) }}
+    {{ form_errors(form.file, { 'attr': {'class': 'help-block'} }) }}
+    {{ form_widget(form.file) }}
+     <div class="form-group">
+        {{ form_widget(form.save) }}
+    </div>
+    {{ form_end(form) }}
+</div>
+
+{% endblock %}
+
+{% block stylesheets %}
+{{ parent() }}
+<style type="text/css" rel="stylesheet">
+	body{
+		padding-top: 100px;
+	}
+</style>
+{% endblock %}

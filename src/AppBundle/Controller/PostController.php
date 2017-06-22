@@ -7,6 +7,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Doctrine\ORM\EntityManager;
 use AppBundle\Entity\Vote;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Post;
+use AppBundle\Form\PostType;
+
 
 class PostController extends Controller{
 
@@ -27,13 +31,55 @@ class PostController extends Controller{
 
         $em = $this ->getDoctrine() ->getManager();
 
-        $post =  $em ->getRepository('AppBundle:Post') ->find($post_id);
+        $post =  $em ->getRepository('AppBundle:Post') -> find($post_id);
 
         $em->remove($post);
 
         $em->flush();
 
         return $this->redirectToRoute('showUserPost');
+    }
+
+    public function createPostAction(Request $request){
+    	$em = $this -> getDoctrine() -> getManager();
+
+    	$user = $this -> getUser();
+
+    	$post = new Post();
+
+    	$form = $this->createForm(PostType::class, $post);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+        	$post -> setAuteur($user->getUsername());
+
+        	$post = $form->getData();
+        	dump($post);
+
+        	$file = $post -> getFile();
+
+        	$fileName = md5(uniqid()).'.'. $file->guessExtension();
+
+        	$file->move(
+                $this->getParameter('post_img_directory'),
+                $fileName
+            );
+
+            $post->setImg($fileName);
+
+            $em->persist($post);
+
+            $em->flush();	
+
+            return $this->redirectToRoute("showUserPost");
+        }
+        else{
+	        return $this->render('::default/createPost.html.twig', array(
+            	'form' => $form-> createView(),
+        	));
+    	}
     }
 
 	public function likeAction($post_id)
@@ -152,9 +198,5 @@ class PostController extends Controller{
         {
             return false;
         }
-    }
-
-    public function createPostAction(){
-
     }
 }

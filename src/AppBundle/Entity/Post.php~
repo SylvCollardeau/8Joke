@@ -59,14 +59,6 @@ class Post
 
 
     private $file;
-
-    public function getFile(){
-        return $this->file;
-    }
-
-    public function setFile($file){
-        $this->file = $file;
-    }
     
     /**
      * Get id
@@ -200,3 +192,4 @@ class Post
 
 
 }
+

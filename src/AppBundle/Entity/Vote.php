@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 /**
  * Vote
  *
- * @ORM\Table(name="vote", options={"collate"="utf8mb4_unicode_ci", "charset"="utf8mb4"})
+ * @ORM\Table(name="vote", options={"collate"="utf8_swedish_ci", "charset"="utf8"})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\VoteRepository"))
  */
 class Vote

@@ -15,8 +15,6 @@ class UserController extends Controller
 
     public function loginAction()
     {
-    	$title = "Sign-in";
-
     	$authUtils = $this->get("security.authentication_utils");
     	 // get the login error if there is one
 		$error = $authUtils->getLastAuthenticationError();

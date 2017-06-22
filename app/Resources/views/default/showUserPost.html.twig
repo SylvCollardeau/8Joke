@@ -12,14 +12,14 @@
 
     <br>
 
-    <a class="btn btn-info" href="#">Create post</a>
+    <a class="btn btn-info" href="{{ path('createPost') }}">Create post</a>
 
     {% if post %}
         {% for item in post %}
             <div class="row">
                 <div class="col-lg-4 col-lg-push-4">
                     <h2>{{ item.titre }}</h2>
-                    <img class="img-thumbnail" src="{{ asset(item.imgpath) }}">
+                    <img class="img-thumbnail" src="{{ asset(item.img) }}">
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <a class="btn btn-default" href="{{ path('deletePost', {post_id : item.id}) }}">Delete post</a>
                     </div>

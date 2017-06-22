@@ -7,7 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 /**
  * User. 
- * @ORM\Table(name="user", options={"collate"="utf8mb4_unicode_ci", "charset"="utf8mb4"})
+ * @ORM\Table(name="user", options={"collate"="utf8_swedish_ci", "charset"="utf8"})
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository"))
  */
 class User implements UserInterface, \Serializable

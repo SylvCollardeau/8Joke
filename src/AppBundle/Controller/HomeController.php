@@ -28,8 +28,6 @@ class HomeController extends Controller
         	$vote = null;
         }
 
-        
-
         return $this->render('::default/home.html.twig', array(
             'home' => $home,
             'post' => $post,

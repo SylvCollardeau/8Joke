@@ -10,6 +10,10 @@ deletePost:
  path: /deletePost/{post_id}
  defaults: { _controller: AppBundle:Post:deletePost }
 
+createPost:
+ path: /createPost
+ defaults: { _controller: AppBundle:Post:createPost }
+
 like:
  path: /like/{post_id}
  defaults: { _controller: AppBundle:Post:like }
