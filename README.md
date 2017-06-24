@@ -1,4 +1,4 @@
-8Joke Installation
+﻿8Joke Installation
 ========================
 
 - Création du container de la base de données : 
@@ -29,6 +29,11 @@ docker cp ./command.sql mysql:/
 
 ```
 docker exec mysql /bin/sh -c 'mysql -u root -proot  <command.sql'
+```
+
+- Lancer le projet en local (à la racine du projet) :
+```
+php bin/console server:run
 ```
 
 Utilisateur par défaut :
